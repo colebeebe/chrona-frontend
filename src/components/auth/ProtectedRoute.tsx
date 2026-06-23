@@ -8,7 +8,7 @@ type ProtectedRouteProps = {
 };
 
 function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const user = useUser();
+  const { user } = useUser();
 
   if (!user) {
     return <Navigate to="/login" replace />;
