@@ -1,0 +1,10 @@
+:root {
+  --calendar__page__margin-left: calc(
+    var(--global-sidebar__width) + var(--local-sidebar__width)
+  );
+  --calendar__subpage__width: calc(100vw - var(--calendar__page__margin-left));
+}
+
+.calendar__page {
+  margin-left: var(--calendar__page__margin-left);
+}

@@ -1,0 +1,72 @@
+:root {
+  --outside-month: var(--light-gray);
+  --outside-month__numbers: hsl(0, 2%, 60%);
+  --cell-border: 1px solid var(--gray);
+}
+
+[data-theme='dark'] {
+  --outside-month: hsl(0, 3%, 20%);
+  --cell-border: 1px solid hsl(0, 2%, 30%);
+}
+
+.month-view__component {
+  padding: 10px;
+  width: calc(var(--calendar__subpage__width) - 20px);
+  height: calc(100vh - 20px);
+  display: flex;
+  flex-direction: column;
+
+  .calendar-caption {
+    display: flex;
+    align-items: center;
+
+    h1 {
+      flex: 1;
+      text-align: center;
+      margin: 0;
+    }
+  }
+
+  .calendar-headers {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    h2 {
+      font-size: 1.1rem;
+    }
+  }
+
+  .calendar-body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+
+    border-bottom: var(--cell-border);
+    border-right: var(--cell-border);
+
+    .calendar-cell {
+      border-top: var(--cell-border);
+      border-left: var(--cell-border);
+
+      .calendar-cell__day-container {
+        padding: 5px;
+        span {
+          padding: 0 3px;
+          border-radius: 3px;
+        }
+      }
+
+      .today-date {
+        background-color: var(--accent);
+        color: hsl(0, 5%, 15%);
+      }
+    }
+
+    .outside-month {
+      background-color: var(--outside-month);
+      color: var(--outside-month__numbers);
+    }
+  }
+}
