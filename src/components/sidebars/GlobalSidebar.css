@@ -1,0 +1,74 @@
+:root {
+  --background__gs: hsl(45, 40%, 85%);
+  --background__gs__alt: hsl(45, 45%, 92%);
+  --active-bg__gs: hsl(45, 30%, 96%);
+  --active-link__gs: var(--text-color);
+
+  --login-form__background: white;
+  --login-form__border: 1px solid lightgray;
+  --login-form__inputs: transparent;
+  --login-form__input-border: 1px solid lightgray;
+  --login-form__register-link: hsl(230, 60%, 52%);
+}
+
+[data-theme='dark'] {
+  --background__gs: hsl(20, 5%, 12%);
+  --background__gs__alt: hsl(0, 3%, 22%);
+  --active-bg__gs: var(--text-color);
+  --active-link__gs: var(--background);
+
+  --login-form__background: hsl(0, 3%, 18%);
+  --login-form__border: 1px solid transparent;
+  --login-form__inputs: hsl(0, 2%, 25%);
+  --login-form__input-border: 1px solid transparent;
+  --login-form__register-link: hsl(230, 50%, 70%);
+}
+
+.sidebar__global {
+  background-color: var(--background__gs);
+  height: 100vh;
+  width: var(--global-sidebar__width);
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 20px);
+    padding: 10px 0;
+  }
+
+  a {
+    display: inline-block;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    font-family: var(--sans);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 7px;
+    border: none;
+    background-color: transparent;
+
+    &:hover {
+      background-color: var(--background__gs__alt);
+    }
+
+    &.active-link {
+      background-color: var(--active-bg__gs);
+      color: var(--active-link__gs);
+    }
+  }
+
+  li {
+    list-style: none;
+    text-align: center;
+    padding: 3px;
+  }
+}

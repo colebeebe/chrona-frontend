@@ -1,0 +1,31 @@
+.not-found__page {
+  margin-left: var(--global-sidebar__width);
+  background-color: white;
+  height: 100vh;
+  padding-top: calc(100vh / 2 - 400px);
+
+  img {
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  a.btn {
+    text-decoration: none;
+    z-index: 20;
+  }
+
+  .center-link {
+    text-align: center;
+  }
+}
+
+[data-theme='dark'] {
+  .error__page {
+    background-color: black;
+
+    img {
+      filter: invert(1);
+    }
+  }
+}
