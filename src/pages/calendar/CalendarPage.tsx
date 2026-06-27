@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import CalendarSidebar from '../../sidebars/CalendarSidebar';
+import CalendarSidebar from '../../components/sidebars/CalendarSidebar';
 import './CalendarPage.css';
 
 function CalendarPage() {

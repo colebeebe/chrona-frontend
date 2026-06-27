@@ -1,4 +1,4 @@
-import SettingsSidebar from '../../sidebars/SettingsSidebar';
+import SettingsSidebar from '../../components/sidebars/SettingsSidebar';
 import { Outlet } from 'react-router-dom';
 
 import './SettingsPage.css';

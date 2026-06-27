@@ -1,4 +1,4 @@
-import EventWindow from '../../forms/EventWindow';
+import EventWindow from '../../components/forms/EventWindow';
 
 function TodoSubpage() {
   return (

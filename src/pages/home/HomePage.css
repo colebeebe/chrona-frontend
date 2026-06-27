@@ -1,5 +1,5 @@
 .home__page {
-  margin-left: var(--gloabl-sidebar__width);
+  margin-left: var(--global-sidebar__width);
 
   h1 {
     text-align: center;
