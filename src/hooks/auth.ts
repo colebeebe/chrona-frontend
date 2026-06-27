@@ -4,10 +4,12 @@ import { useUser } from '../contexts/userContext';
 export function useAuth() {
   const { setUser } = useUser();
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch('http://localhost:4000/auth/me', {
+        const res = await fetch(API_URL + '/auth/me', {
           credentials: 'include',
         });
 
@@ -25,5 +27,5 @@ export function useAuth() {
     };
 
     checkAuth();
-  }, [setUser]);
+  }, [setUser, API_URL]);
 }
