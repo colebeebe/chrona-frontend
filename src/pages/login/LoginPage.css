@@ -1,0 +1,33 @@
+:root {
+  --option-background: rgb(225, 225, 225);
+}
+[data-theme='dark'] {
+  --option-background: rgb(53, 50, 50);
+}
+
+.login__page {
+  margin-left: var(--global-sidebar__width);
+
+  .login-option {
+    padding: 4px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--option-background);
+    display: flex;
+    gap: 10px;
+
+    span {
+      padding: 8px 15px;
+      border-radius: 9999px;
+      color: var(--text-color);
+      font-family: var(--sans);
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .active-option {
+      background-color: var(--background);
+    }
+  }
+}
