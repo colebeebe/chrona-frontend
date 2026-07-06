@@ -1,21 +1,29 @@
 import { Navigate, Routes, Route } from 'react-router-dom';
 
 import { useAuth } from './hooks/auth';
+import { useThemeHook } from './hooks/theme';
+
 import GlobalSidebar from './components/sidebars/GlobalSidebar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+
 import Home from './pages/home/HomePage';
+
 import Calendar from './pages/calendar/CalendarPage';
-import Login from './pages/login/LoginPage';
 import EventsSubpage from './pages/calendar/EventsSubpage';
 import TodoSubpage from './pages/calendar/TodoSubpage';
+
 import SettingsPage from './pages/settings/SettingsPage';
 import GeneralSettingsSubpage from './pages/settings/GeneralSettingsSubpage';
+
+import Login from './pages/login/LoginPage';
+
 import NotFound from './pages/errors/NotFound';
 
 import './App.css';
 
 function App() {
   useAuth();
+  useThemeHook();
 
   return (
     <>

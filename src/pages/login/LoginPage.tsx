@@ -1,86 +1,43 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../contexts/userContext';
+import LoginView from '../../components/login/LoginView';
+import SignupView from '../../components/login/SignupView';
+
 import './LoginPage.css';
 
+type LoginViews = 'login' | 'signup';
+
 function LoginPage() {
-  const { setUser } = useUser();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const [currentView, setCurrentView] = useState<LoginViews>('login');
 
-  const API_URL = import.meta.env.VITE_API_URL;
+  const viewComponents = {
+    login: LoginView,
+    signup: SignupView,
+  };
 
-  const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const ActiveView = viewComponents[currentView];
 
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    };
-
-    const response = await fetch(API_URL + '/auth/login', options);
-
-    if (response.status === 401) {
-      const data = await response.json();
-      console.log(data);
-    }
-
-    let user = null;
-    if (response.ok) {
-      user = await response.json();
-    }
-
-    setEmail('');
-    setPassword('');
-
-    if (user) {
-      setUser({
-        id: user.id,
-        email: user.email,
-        firstName: user.first_name,
-        lastName: user.last_name,
-        username: user.username,
-        birthdate: user.birthdate,
-        createdAt: user.created_at,
-        updatedAt: user.updated_at,
-      });
-
-      navigate('/home');
-    }
+  const swapView = () => {
+    if (currentView === 'login') setCurrentView(() => 'signup');
+    else setCurrentView(() => 'login');
   };
 
   return (
     <div className="login__page">
-      <h1>Login</h1>
-      <form id="login-form" onSubmit={handleLogin}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-
-        <button type="submit" className="btn btn-accent">
+      <title>Chrona | Log In</title>
+      <h1>
+        {currentView === 'login'
+          ? 'Welcome Back!'
+          : "We'd Love to Get to Know You!"}
+      </h1>
+      <button className="login-option" onClick={swapView}>
+        <span className={currentView === 'login' ? 'active-option' : ''}>
           Log In
-        </button>
-      </form>
+        </span>
+        <span className={currentView === 'signup' ? 'active-option' : ''}>
+          Sign Up
+        </span>
+      </button>
+      <ActiveView />
     </div>
   );
 }
