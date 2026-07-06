@@ -1,6 +1,8 @@
 import { Navigate, Routes, Route } from 'react-router-dom';
 
 import { useAuth } from './hooks/auth';
+import { useThemeHook } from './hooks/theme';
+
 import GlobalSidebar from './components/sidebars/GlobalSidebar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import Home from './components/pages/home/HomePage';
@@ -15,6 +17,7 @@ import './App.css';
 
 function App() {
   useAuth();
+  useThemeHook();
 
   return (
     <>

@@ -1,13 +1,12 @@
 import UserProvider from './UserProvider';
+import ThemeProvider from './ThemeProvider';
 
-import type { ReactNode } from 'react';
-
-type ContextProviderProps = {
-  children: ReactNode;
-};
-
-function ContextProvider({ children }: ContextProviderProps) {
-  return <UserProvider>{children}</UserProvider>;
+function ContextProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <UserProvider>
+      <ThemeProvider>{children}</ThemeProvider>
+    </UserProvider>
+  );
 }
 
 export default ContextProvider;

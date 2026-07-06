@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useTheme } from '../../../contexts/themeContext';
 
 import './GeneralSettingsSubpage.css';
 
@@ -13,16 +13,14 @@ const colorThemes = [
 ] as const;
 
 function GeneralSettingsSubpage() {
-  // TODO: Move theme and accent to a context provider
-  const [theme, setTheme] = useState('light');
-  const [accentColor, setAccentColor] = useState('green');
+  const { theme, setTheme } = useTheme();
 
   const lightTheme = () => {
-    setTheme('light');
+    setTheme({ mode: 'light', accent: theme ? theme.accent : 'green' });
   };
 
   const darkTheme = () => {
-    setTheme('dark');
+    setTheme({ mode: 'dark', accent: theme ? theme.accent : 'green' });
   };
 
   return (
@@ -50,11 +48,16 @@ function GeneralSettingsSubpage() {
               <button
                 className={[
                   `accent-color-${color}`,
-                  color === accentColor ? 'selected-accent' : '',
+                  color === theme?.accent ? 'selected-accent' : '',
                 ]
                   .filter(Boolean)
                   .join(' ')}
-                onClick={() => setAccentColor(color)}
+                onClick={() =>
+                  setTheme({
+                    accent: color,
+                    mode: theme ? theme.mode : 'system',
+                  })
+                }
                 key={i}
               ></button>
             ))}
