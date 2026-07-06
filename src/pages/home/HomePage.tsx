@@ -1,4 +1,4 @@
-import { useUser } from '../../../contexts/userContext';
+import { useUser } from '../../contexts/userContext';
 
 import './HomePage.css';
 
