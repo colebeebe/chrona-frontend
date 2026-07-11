@@ -1,14 +1,25 @@
 :root {
-  --option-background: rgb(225, 225, 225);
+  --option-background: rgb(220, 220, 225);
+  --input-background: white;
+  --input-border: lightgray;
 }
 [data-theme='dark'] {
   --option-background: rgb(53, 50, 50);
+  --input-background: rgb(53, 50, 50);
+  --input-border: transparent;
 }
 
 .login__page {
   margin-left: var(--global-sidebar__width);
 
+  h1 {
+    text-align: center;
+    margin-top: 120px;
+    margin-bottom: 40px;
+  }
+
   .login-option {
+    margin: 20px auto;
     padding: 4px;
     border-radius: 9999px;
     border: none;
@@ -18,16 +29,61 @@
     gap: 10px;
 
     span {
-      padding: 8px 15px;
+      padding: 8px 80px;
       border-radius: 9999px;
       color: var(--text-color);
       font-family: var(--sans);
       font-weight: bold;
-      font-size: 1rem;
+      font-size: 1.3rem;
     }
 
     .active-option {
       background-color: var(--background);
+    }
+  }
+
+  .login-view,
+  .signup-view {
+    form {
+      width: 750px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 0 auto;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        input {
+          font-size: 1.2rem;
+          padding: 8px;
+          background-color: var(--input-background);
+          border: 1px solid var(--input-border);
+          border-radius: 8px;
+          color: var(--text-color);
+        }
+      }
+    }
+
+    button[type='submit'] {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      padding: 8px;
+    }
+  }
+
+  .signup-view {
+    .form-group {
+      input:invalid {
+        border: 1px solid var(--red);
+      }
+    }
+
+    .group-container {
+      display: flex;
+      gap: 10px;
     }
   }
 }

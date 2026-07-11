@@ -44,7 +44,6 @@ function LoginView() {
 
   return (
     <div className="login-view">
-      <h2>Log In</h2>
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
