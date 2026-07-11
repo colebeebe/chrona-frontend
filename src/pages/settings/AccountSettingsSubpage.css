@@ -1,0 +1,58 @@
+:root {
+  --account-settings-background: white;
+  --account-settings-border: lightgray;
+}
+[data-theme='dark'] {
+  --account-settings-background: #242020;
+  --account-settings-border: #111;
+}
+
+.account-settings__subpage {
+  h1 {
+    text-align: center;
+    margin-top: 60px;
+  }
+
+  .user-account-info {
+    background-color: var(--account-settings-background);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--account-settings-border);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 800px;
+    margin: 20px auto 0 auto;
+
+    .info-collection {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+
+      .info-group {
+        flex: 1;
+      }
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 10px;
+      padding: 0 120px;
+      margin-top: 80px;
+
+      button {
+        flex: 1;
+      }
+    }
+  }
+
+  .no-user-message {
+    display: flex;
+    flex-direction: column;
+    margin: 120px auto 0 auto;
+    width: 300px;
+    gap: 20px;
+
+    p {
+      text-align: center;
+    }
+  }
+}

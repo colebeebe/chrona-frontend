@@ -1,7 +1,10 @@
 import { useState } from 'react';
+
 import { useUser } from '../../contexts/userContext';
 
 import './LoginView.css';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 function LoginView() {
   const { setUser } = useUser();
@@ -18,12 +21,15 @@ function LoginView() {
       },
       body: JSON.stringify({ email, password }),
     };
-    const response = await fetch('http://localhost:4000/auth/login', options);
+    const response = await fetch(API_URL + '/auth/login', options);
 
     let user = null;
     if (response.ok) {
       user = await response.json();
     }
+
+    setEmail('');
+    setPassword('');
 
     if (user) {
       setUser({
@@ -37,9 +43,6 @@ function LoginView() {
         updatedAt: user.updated_at,
       });
     }
-
-    setEmail('');
-    setPassword('');
   };
 
   return (

@@ -14,6 +14,7 @@ import TodoSubpage from './pages/calendar/TodoSubpage';
 
 import SettingsPage from './pages/settings/SettingsPage';
 import GeneralSettingsSubpage from './pages/settings/GeneralSettingsSubpage';
+import AccountSettingsSubpage from './pages/settings/AccountSettingsSubpage';
 
 import Login from './pages/login/LoginPage';
 
@@ -45,6 +46,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/settings" element={<SettingsPage />}>
           <Route index element={<GeneralSettingsSubpage />} />
+          <Route path="account" element={<AccountSettingsSubpage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+
+import { useUser } from '../../contexts/userContext';
 import LoginView from '../../components/login/LoginView';
 import SignupView from '../../components/login/SignupView';
 
@@ -8,6 +11,9 @@ type LoginViews = 'login' | 'signup';
 
 function LoginPage() {
   const [currentView, setCurrentView] = useState<LoginViews>('login');
+
+  const { user } = useUser();
+  if (user) return <Navigate to="/settings/account" replace />;
 
   const viewComponents = {
     login: LoginView,
