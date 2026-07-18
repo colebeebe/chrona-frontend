@@ -1,9 +1,15 @@
 import { IoClose } from 'react-icons/io5';
 import './EventWindow.css';
 
-function EventWindow() {
-  const date = new Date();
-
+function EventWindow({
+  date,
+  hidden,
+  setHidden,
+}: {
+  date: Date;
+  hidden: boolean;
+  setHidden: (value: boolean) => void;
+}) {
   const minutes = date.getMinutes();
   const remainder = minutes % 15;
   const addedMinutes = remainder === 0 ? 15 : 15 - remainder;
@@ -16,10 +22,14 @@ function EventWindow() {
   const formattedDate = date.toISOString().split('T')[0];
 
   return (
-    <div className="event-window__component">
+    <div
+      className={
+        hidden ? 'event-window__component hide' : 'event-window__component'
+      }
+    >
       <div className="modal-content">
         <div className="close-button-container">
-          <button className="close-button">
+          <button className="close-button" onClick={() => setHidden(true)}>
             <IoClose size={20} color={'gray'} />
           </button>
         </div>
@@ -73,7 +83,9 @@ function EventWindow() {
           </select>
         </section>
         <div className="option-button-container">
-          <button className="cancel-button">Cancel</button>
+          <button className="cancel-button" onClick={() => setHidden(true)}>
+            Cancel
+          </button>
           <button className="save-button">Save</button>
         </div>
       </div>

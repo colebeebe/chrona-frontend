@@ -262,3 +262,7 @@ body {
   background-color: var(--background);
   color: var(--text-color);
 }
+
+.hide {
+  display: none !important;
+}

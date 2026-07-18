@@ -1,13 +1,26 @@
+import { useState } from 'react';
+
 import CalendarHeaderCaption from '../CalendarHeaderCaption';
 import Event from '../../events/Event';
 import { getMonthData } from '../../../utils/calendarData';
 import { sameDay } from '../../../utils/calendarCalculations';
+import EventWindow from '../../forms/EventWindow';
+
 import type { CalendarProps } from '../../../utils/calendarTypes';
+
 import './MonthView.css';
 
 function MonthView({ date, setDate, setCurrentView }: CalendarProps) {
   const days = getMonthData(date);
   const today = new Date();
+
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [modalHidden, setModalHidden] = useState(true);
+
+  const handleEventPopup = (date: Date) => {
+    setCurrentDate(date);
+    setModalHidden(false);
+  };
 
   const nextMonth = () => {
     const month = date.getMonth();
@@ -47,6 +60,7 @@ function MonthView({ date, setDate, setCurrentView }: CalendarProps) {
               .filter(Boolean)
               .join(' ')}
             key={i}
+            onClick={() => handleEventPopup(day.date)}
           >
             <div className="calendar-cell__day-container">
               <span className={sameDay(day.date, today) ? 'today-date' : ''}>
@@ -58,6 +72,11 @@ function MonthView({ date, setDate, setCurrentView }: CalendarProps) {
           </div>
         ))}
       </div>
+      <EventWindow
+        date={currentDate}
+        hidden={modalHidden}
+        setHidden={setModalHidden}
+      />
     </div>
   );
 }
