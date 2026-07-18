@@ -11,6 +11,7 @@ import Home from './pages/home/HomePage';
 import Calendar from './pages/calendar/CalendarPage';
 import EventsSubpage from './pages/calendar/EventsSubpage';
 import TodoSubpage from './pages/calendar/TodoSubpage';
+import PlanSubpage from './pages/calendar/PlanSubpage';
 
 import SettingsPage from './pages/settings/SettingsPage';
 import GeneralSettingsSubpage from './pages/settings/GeneralSettingsSubpage';
@@ -42,6 +43,7 @@ function App() {
         >
           <Route index element={<EventsSubpage />} />
           <Route path="todo" element={<TodoSubpage />} />
+          <Route path="plan" element={<PlanSubpage />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/settings" element={<SettingsPage />}>

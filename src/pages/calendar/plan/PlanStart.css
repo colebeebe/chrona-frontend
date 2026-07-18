@@ -1,0 +1,7 @@
+.plan__start {
+  button {
+    width: 300px;
+    font-size: 1.4rem !important;
+    font-weight: bold;
+  }
+}

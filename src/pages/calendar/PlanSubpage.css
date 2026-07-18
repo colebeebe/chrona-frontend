@@ -1,0 +1,17 @@
+.plan__subpage {
+  h1 {
+    text-align: center;
+    margin: 30px auto;
+  }
+
+  .timer {
+    font-size: 2rem;
+    text-align: center;
+    border: 1px solid lightgray;
+    border-radius: 999px;
+    width: 150px;
+    margin: 0 auto;
+    padding: 5px;
+    font-family: var(--mono);
+  }
+}
