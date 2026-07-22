@@ -47,49 +47,53 @@ function Home() {
     <div className="home__page">
       <title>Chrona | Home</title>
       <h1>{user ? `Welcome back, ${user.firstName}` : 'Welcome to Chrona.'}</h1>
-      <div className="user-metrics">
-        <div className="today-events event-section">
-          <h2>Today's Tasks</h2>
-          <ul>
-            {events
-              .filter((event) => {
-                return sameDay(event.startDate, today);
-              })
-              .sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
-              .map((event, i) => (
-                <li key={i}>
-                  <span>{event.name}</span>
-                  <span>
-                    {event.startDate.toLocaleTimeString([], {
-                      hour: 'numeric',
-                      minute: '2-digit',
-                    })}
-                  </span>
-                </li>
-              ))}
-          </ul>
+      {user ? (
+        <div className="user-metrics">
+          <div className="today-events event-section">
+            <h2>Today's Tasks</h2>
+            <ul>
+              {events
+                .filter((event) => {
+                  return sameDay(event.startDate, today);
+                })
+                .sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
+                .map((event, i) => (
+                  <li key={i}>
+                    <span>{event.name}</span>
+                    <span>
+                      {event.startDate.toLocaleTimeString([], {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                  </li>
+                ))}
+            </ul>
+          </div>
+          <div className="upcoming-events event-section">
+            <h2>Upcoming Events</h2>
+            <ul>
+              {events
+                .filter((event) => {
+                  return event.startDate > today && event.startDate <= oneWeek;
+                })
+                .map((event, i) => (
+                  <li key={i}>
+                    <span>{event.name}</span>
+                    <span>
+                      {event.startDate.toLocaleTimeString([], {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                  </li>
+                ))}
+            </ul>
+          </div>
         </div>
-        <div className="upcoming-events event-section">
-          <h2>Upcoming Events</h2>
-          <ul>
-            {events
-              .filter((event) => {
-                return event.startDate > today && event.startDate <= oneWeek;
-              })
-              .map((event, i) => (
-                <li key={i}>
-                  <span>{event.name}</span>
-                  <span>
-                    {event.startDate.toLocaleTimeString([], {
-                      hour: 'numeric',
-                      minute: '2-digit',
-                    })}
-                  </span>
-                </li>
-              ))}
-          </ul>
-        </div>
-      </div>
+      ) : (
+        <p>Log in to view metrics</p>
+      )}
     </div>
   );
 }
