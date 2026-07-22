@@ -1,3 +1,12 @@
+:root {
+  --event-window__bg: white;
+  --close-btn__bg: hsl(200, 8%, 90%);
+}
+[data-theme='dark'] {
+  --event-window__bg: hsl(0, 4%, 10.5%);
+  --close-btn__bg: var(--gray);
+}
+
 .event-window__component {
   inset: 0;
   margin-left: var(--calendar__page__margin-left);
@@ -10,16 +19,25 @@
   background-color: rgba(0, 0, 0, 0.2);
 
   .modal-content {
-    background-color: white;
+    background-color: var(--event-window__bg);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 500px;
 
-    input:focus,
-    textarea:focus,
-    select:focus {
-      outline: 2px solid var(--accent);
+    input,
+    textarea {
+      background-color: transparent;
+      color: var(--text-color);
+
+      &:focus {
+        outline: 2px solid var(--accent);
+      }
+    }
+
+    textarea {
+      border-radius: 10px;
+      border: 1px solid var(--gray);
     }
 
     .close-button-container {
@@ -39,7 +57,7 @@
         justify-content: center;
 
         &:hover {
-          background-color: hsl(200, 8%, 90%);
+          background-color: var(--close-btn__bg);
         }
       }
     }
@@ -51,6 +69,7 @@
       font-weight: bold;
       border: 1px solid transparent;
       border-bottom: 1px solid lightgray;
+      margin-bottom: 10px;
 
       &:hover {
         border: 1px solid lightgray;
@@ -68,10 +87,17 @@
       align-items: center;
       justify-content: space-between;
       width: 90%;
-      margin: 0 auto;
+      margin: 10px auto;
+      font-size: 1.2rem;
+
+      input {
+        font-size: 1.1rem;
+        padding: 5px;
+      }
     }
 
     .notes-input {
+      margin-top: 10px;
       textarea {
         width: 100%;
       }
@@ -83,17 +109,7 @@
       align-items: center;
       gap: 10px;
       padding: 10px;
-
-      button {
-        padding: 5px 15px;
-        border: none;
-        border-radius: 9999px;
-        cursor: pointer;
-      }
-
-      button.save-button {
-        background-color: var(--accent);
-      }
+      margin-top: 20px;
     }
   }
 }

@@ -136,6 +136,8 @@
   --blue__alt: hsl(185, 55%, 50%);
   --purple: hsl(270, 55%, 75%);
   --purple__alt: hsl(270, 55%, 70%);
+  --gray: hsl(215, 2%, 25%);
+  --light-gray: hsl(215, 6%, 40%);
 
   .btn {
     border: 2px solid var(--text-color);

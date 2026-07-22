@@ -1,5 +1,10 @@
+import { useState, useEffect } from 'react';
+import { useUser } from '../../contexts/userContext';
 import { IoClose } from 'react-icons/io5';
+
 import './EventWindow.css';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function EventWindow({
   date,
@@ -10,16 +15,64 @@ function EventWindow({
   hidden: boolean;
   setHidden: (value: boolean) => void;
 }) {
-  const minutes = date.getMinutes();
-  const remainder = minutes % 15;
-  const addedMinutes = remainder === 0 ? 15 : 15 - remainder;
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
 
-  const startTime = new Date();
-  startTime.setMinutes(minutes + addedMinutes);
-  const endTime = new Date(startTime);
-  endTime.setMinutes(endTime.getMinutes() + 15);
+  const { user } = useUser();
 
-  const formattedDate = date.toISOString().split('T')[0];
+  useEffect(() => {
+    const getDateString = () => {
+      const offset = date.getTimezoneOffset();
+      const localDate = new Date(date.getTime() - offset * 60000);
+      return localDate.toISOString().slice(0, 16);
+    };
+
+    const dateString = getDateString();
+
+    setStartTime(dateString);
+    setEndTime(dateString);
+  }, [date]);
+
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setTitle('');
+    setDescription('');
+    setHidden(true);
+  };
+
+  const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (!user) return;
+
+    const data = {
+      userId: user.id,
+      title,
+      description,
+      startTime,
+      endTime,
+    };
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    const response = await fetch(apiUrl + `/events`, options);
+    if (response.ok) {
+      const json = await response.json();
+      console.log(JSON.stringify(json, null, 2));
+    }
+
+    setTitle('');
+    setDescription('');
+    setHidden(true);
+  };
 
   return (
     <div
@@ -29,7 +82,7 @@ function EventWindow({
     >
       <div className="modal-content">
         <div className="close-button-container">
-          <button className="close-button" onClick={() => setHidden(true)}>
+          <button className="close-button" onClick={handleCancel}>
             <IoClose size={20} color={'gray'} />
           </button>
         </div>
@@ -37,6 +90,8 @@ function EventWindow({
           name="title"
           id="title-input"
           type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           placeholder="Add title"
         />
         <section className="start-date-inputs">
@@ -45,12 +100,9 @@ function EventWindow({
             <input
               name="start-date"
               id="start-date"
-              type="date"
-              value={formattedDate}
-            />
-            <input
-              type="time"
-              value={`${startTime.getHours()}:${startTime.getMinutes()}`}
+              type="datetime-local"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
             />
           </div>
         </section>
@@ -60,33 +112,29 @@ function EventWindow({
             <input
               name="end-date"
               id="end-date"
-              type="date"
-              value={formattedDate}
-            />
-            <input
-              type="time"
-              value={`${endTime.getHours()}:${endTime.getMinutes()}`}
+              type="datetime-local"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
             />
           </div>
         </section>
         <section className="notes-input">
           <label htmlFor="notes">Notes</label>
-          <textarea id="notes" name="notes" rows={3} />
-        </section>
-        <section className="calendar-select">
-          <select name="calendars" id="calendar-drop-down">
-            <option value="calendar1">Calendar 1</option>
-            <option value="calendar2">Calendar 2</option>
-            <option value="calendar3">Calendar 3</option>
-            <option value="calendar4">Calendar 4</option>
-            <option value="calendar5">Calendar 5</option>
-          </select>
+          <textarea
+            id="notes"
+            name="notes"
+            rows={4}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </section>
         <div className="option-button-container">
-          <button className="cancel-button" onClick={() => setHidden(true)}>
+          <button className="btn" onClick={handleCancel}>
             Cancel
           </button>
-          <button className="save-button">Save</button>
+          <button className="btn btn-accent" onClick={handleSave}>
+            Save
+          </button>
         </div>
       </div>
     </div>
