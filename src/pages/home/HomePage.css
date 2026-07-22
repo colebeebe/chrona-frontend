@@ -6,6 +6,11 @@
     margin-top: 80px;
   }
 
+  .login-message {
+    text-align: center;
+    margin-top: 40px;
+  }
+
   .user-metrics {
     display: flex;
     gap: 30px;

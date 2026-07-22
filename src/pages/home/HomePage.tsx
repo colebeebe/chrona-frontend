@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useUser } from '../../contexts/userContext';
 
 import type { EventType } from '../../utils/calendarTypes';
@@ -92,7 +93,9 @@ function Home() {
           </div>
         </div>
       ) : (
-        <p>Log in to view metrics</p>
+        <p className="login-message">
+          <Link to="/login">Log in</Link> to view metrics
+        </p>
       )}
     </div>
   );
