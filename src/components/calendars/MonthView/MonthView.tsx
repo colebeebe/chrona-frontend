@@ -74,8 +74,13 @@ function MonthView({
               <span className={sameDay(day.date, today) ? 'today-date' : ''}>
                 {day.date.getDate()}
                 {day.events &&
-                  day.events.map((e) => (
-                    <Event event={e} stack={e.stack} setEvents={setEvents} />
+                  day.events.map((e, i) => (
+                    <Event
+                      event={e}
+                      stack={e.stack}
+                      setEvents={setEvents}
+                      key={i}
+                    />
                   ))}
               </span>
             </div>

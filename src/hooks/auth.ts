@@ -22,7 +22,16 @@ export function useAuth() {
 
         const data = await res.json();
 
-        setUser(data);
+        setUser({
+          id: data.id,
+          firstName: data.first_name,
+          lastName: data.last_name,
+          email: data.email,
+          username: data.username,
+          birthdate: data.birthdate,
+          createdAt: data.created_at,
+          updatedAt: data.updated_at,
+        });
         setTheme({
           mode: data.theme,
           accent: data.accent,
@@ -37,5 +46,5 @@ export function useAuth() {
     };
 
     checkAuth();
-  }, [setUser, API_URL]);
+  }, [setUser, setTheme, API_URL]);
 }
