@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
 import { useUser } from '../../contexts/userContext';
+import { useTheme } from '../../contexts/themeContext';
 
 import './AccountSettingsSubpage.css';
 
@@ -8,10 +9,15 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 function AccountSettings() {
   const { user, setUser } = useUser();
+  const { setTheme } = useTheme();
 
   const handleLogout = async () => {
     await fetch(API_URL + '/auth/logout');
     setUser(null);
+    setTheme({
+      mode: 'light',
+      accent: 'green',
+    });
   };
 
   return (

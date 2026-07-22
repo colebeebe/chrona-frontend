@@ -91,4 +91,12 @@
       }
     }
   }
+
+  #save-settings-btn {
+    width: 20%;
+    display: block;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    margin-top: 80px;
+  }
 }
