@@ -6,6 +6,7 @@
 }
 
 .edit-event__component {
+  z-index: 1000;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.15);
   top: 0;
