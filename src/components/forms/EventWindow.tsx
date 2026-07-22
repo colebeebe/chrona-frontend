@@ -63,11 +63,7 @@ function EventWindow({
       body: JSON.stringify(data),
     };
 
-    const response = await fetch(apiUrl + `/events`, options);
-    if (response.ok) {
-      const json = await response.json();
-      console.log(JSON.stringify(json, null, 2));
-    }
+    await fetch(apiUrl + `/events`, options);
 
     setTitle('');
     setDescription('');

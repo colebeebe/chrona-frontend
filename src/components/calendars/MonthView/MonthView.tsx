@@ -10,8 +10,14 @@ import type { CalendarProps } from '../../../utils/calendarTypes';
 
 import './MonthView.css';
 
-function MonthView({ date, setDate, setCurrentView }: CalendarProps) {
-  const days = getMonthData(date);
+function MonthView({
+  date,
+  setDate,
+  setCurrentView,
+  events,
+  setEvents,
+}: CalendarProps) {
+  const days = getMonthData(date, events);
   const today = new Date();
 
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -49,6 +55,8 @@ function MonthView({ date, setDate, setCurrentView }: CalendarProps) {
         setDate={setDate}
         setCurrentView={setCurrentView}
         navigate={{ next: nextMonth, prev: prevMonth }}
+        events={events}
+        setEvents={setEvents}
       />
       <div className="calendar-body">
         {days.map((day, i) => (

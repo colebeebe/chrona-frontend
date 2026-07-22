@@ -6,39 +6,7 @@ type DateObjectType = {
   events?: EventType[];
 };
 
-// TODO: When we create a backend, replace this with a db query
-const events: EventType[] = [
-  {
-    name: 'Test Event',
-    startDate: new Date('2026-05-10 12:00'),
-    endDate: new Date('2026-05-12 12:00'),
-    calendar: 'yellow',
-    stack: 0,
-  },
-  {
-    name: 'Test Event 2',
-    startDate: new Date('2026-05-11 10:00'),
-    endDate: new Date('2026-05-11 13:00'),
-    calendar: 'orange',
-    stack: 1,
-  },
-  {
-    name: 'Vacation',
-    startDate: new Date('2026-06-08 12:00'),
-    endDate: new Date('2026-06-13 12:00'),
-    calendar: 'blue',
-    stack: 0,
-  },
-  {
-    name: 'Cole CSE 341 Meeting',
-    startDate: new Date('2026-05-28 10:00'),
-    endDate: new Date('2026-05-28 11:00'),
-    calendar: 'gray',
-    stack: 0,
-  },
-] as const;
-
-export function getMonthData(date: Date) {
+export function getMonthData(date: Date, events: EventType[]) {
   const year = date.getFullYear();
   const month = date.getMonth();
 
@@ -63,7 +31,7 @@ export function getMonthData(date: Date) {
   return days;
 }
 
-export function getWeekData(date: Date) {
+export function getWeekData(date: Date, events: EventType[]) {
   const start = new Date(date);
   const dayOfWeek = start.getDay();
   start.setDate(start.getDate() - dayOfWeek);

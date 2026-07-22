@@ -8,6 +8,8 @@ export type CalendarProps = {
     next: () => void;
     prev: () => void;
   };
+  events: EventType[];
+  setEvents: React.Dispatch<React.SetStateAction<EventType[]>>;
 };
 
 export type EventType = {

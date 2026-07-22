@@ -3,8 +3,14 @@ import { getWeekData } from '../../../utils/calendarData';
 import type { CalendarProps } from '../../../utils/calendarTypes';
 import './WeekView.css';
 
-function WeekView({ date, setDate, setCurrentView }: CalendarProps) {
-  const days = getWeekData(date);
+function WeekView({
+  date,
+  setDate,
+  setCurrentView,
+  events,
+  setEvents,
+}: CalendarProps) {
+  const days = getWeekData(date, events);
 
   const prev = () => {
     const d = new Date(date);
@@ -26,6 +32,8 @@ function WeekView({ date, setDate, setCurrentView }: CalendarProps) {
           setDate={setDate}
           setCurrentView={setCurrentView}
           navigate={{ prev, next }}
+          events={events}
+          setEvents={setEvents}
         />
         <div className="number-header">
           {Array.from({ length: 7 }).map((_, i) => (
