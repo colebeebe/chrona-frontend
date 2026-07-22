@@ -78,7 +78,10 @@ function PlanMinor({
         </button>
         <button
           className="btn btn-accent"
-          onClick={() => setCurrentView('start')}
+          onClick={() => {
+            setCurrentView('start');
+            setTimerRunning(false);
+          }}
         >
           Finish
         </button>

@@ -5,4 +5,31 @@
     text-align: center;
     margin-top: 80px;
   }
+
+  .user-metrics {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
+
+    .event-section {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+
+      h2 {
+        text-align: center;
+        border-bottom: 1px solid var(--light-gray);
+      }
+
+      ul {
+        li {
+          display: flex;
+          justify-content: space-between;
+          padding: 5px;
+        }
+      }
+    }
+  }
 }
