@@ -16,15 +16,17 @@ export function getMonthData(date: Date, events: EventType[]) {
 
   const days: DateObjectType[] = [];
 
-  // TODO: Create stacking logic here
-  // I think the best way to do this is to look backwards at the events that
-  // have happened? It will need to have reference so each day doesn't have to
-  // look at every day before it.
   // TODO: Create wrapping logic here
   for (let i = 0; i < 42; i++) {
     const d = new Date(start);
     d.setDate(start.getDate() + i);
-    const dayEvents = events.filter((e) => sameDay(e.startDate, d));
+    const dayEvents = events
+      .filter((e) => sameDay(e.startDate, d))
+      .sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
+      .map((event, index) => ({
+        ...event,
+        stack: index,
+      }));
     days.push({ date: d, events: dayEvents });
   }
 

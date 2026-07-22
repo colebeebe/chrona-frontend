@@ -15,8 +15,8 @@ function Event({ event, stack }: EventProps) {
       className="event__component"
       style={{
         width: `calc((var(--calendar__subpage__width) - 32px) / 7 * ${numDays} - 15px)`,
-        backgroundColor: `var(--accent)`,
-        marginTop: `${stack * 24}px`,
+        backgroundColor: `var(--yellow)`,
+        marginTop: `${stack * 24 + 2}px`,
       }}
     >
       <span>{event.name}</span>
