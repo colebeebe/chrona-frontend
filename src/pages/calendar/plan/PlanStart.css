@@ -3,5 +3,7 @@
     width: 300px;
     font-size: 1.4rem !important;
     font-weight: bold;
+    margin: 150px auto 0 auto;
+    display: block !important;
   }
 }
