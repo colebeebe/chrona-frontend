@@ -10,6 +10,7 @@ export type CalendarProps = {
   };
   events: EventType[];
   setEvents: React.Dispatch<React.SetStateAction<EventType[]>>;
+  children: React.ReactNode;
 };
 
 export type EventType = {

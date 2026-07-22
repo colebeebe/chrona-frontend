@@ -57,7 +57,9 @@ function MonthView({
         navigate={{ next: nextMonth, prev: prevMonth }}
         events={events}
         setEvents={setEvents}
-      />
+      >
+        {date.toLocaleString('default', { month: 'long' })} {date.getFullYear()}
+      </CalendarHeaderCaption>
       <div className="calendar-body">
         {days.map((day, i) => (
           <div

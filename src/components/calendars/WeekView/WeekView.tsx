@@ -34,7 +34,10 @@ function WeekView({
           navigate={{ prev, next }}
           events={events}
           setEvents={setEvents}
-        />
+        >
+          {date.toLocaleString('default', { month: 'long' })}{' '}
+          {date.getFullYear()}
+        </CalendarHeaderCaption>
         <div className="number-header">
           {Array.from({ length: 7 }).map((_, i) => (
             <div className="day-number" key={i}>

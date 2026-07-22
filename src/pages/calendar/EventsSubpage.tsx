@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import YearView from '../../components/calendars/YearView/YearView';
 import MonthView from '../../components/calendars/MonthView/MonthView';
 import WeekView from '../../components/calendars/WeekView/WeekView';
 import { useUser } from '../../contexts/userContext';
@@ -45,7 +46,7 @@ function EventsSubpage() {
   }, [user]);
 
   const viewComponents = {
-    year: MonthView,
+    year: YearView,
     month: MonthView,
     week: WeekView,
     day: MonthView,
@@ -64,7 +65,9 @@ function EventsSubpage() {
           navigate={{ next: () => {}, prev: () => {} }}
           events={events}
           setEvents={setEvents}
-        />
+        >
+          <></>
+        </ActiveView>
       </div>
     </div>
   );

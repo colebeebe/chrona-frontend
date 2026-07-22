@@ -1,0 +1,20 @@
+.calendar-caption {
+  display: flex;
+  align-items: center;
+
+  h1 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+.calendar-headers {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  h2 {
+    font-size: 1.1rem;
+  }
+}

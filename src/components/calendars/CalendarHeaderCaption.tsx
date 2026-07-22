@@ -4,15 +4,21 @@ import './CalendarHeaderCaption.css';
 const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const;
 
 function CalendarHeaderCaption({
-  date,
   setDate,
   setCurrentView,
   navigate,
+  children,
 }: CalendarProps) {
   return (
     <div className="calendar-header-caption__component">
       <div className="calendar-caption">
         <div className="view-select-button__container">
+          <button
+            className="week-view-select btn"
+            onClick={() => setCurrentView('week')}
+          >
+            Week
+          </button>
           <button
             className="month-view-select btn"
             onClick={() => setCurrentView('month')}
@@ -20,16 +26,13 @@ function CalendarHeaderCaption({
             Month
           </button>
           <button
-            className="week-view-select btn"
-            onClick={() => setCurrentView('week')}
+            className="year-view-select btn"
+            onClick={() => setCurrentView('year')}
           >
-            Week
+            Year
           </button>
         </div>
-        <h1>
-          {date.toLocaleString('default', { month: 'long' })}{' '}
-          {date.getFullYear()}
-        </h1>
+        <h1>{children}</h1>
         <div className="mont-select-button__container">
           <button className="btn" onClick={navigate.prev}>
             &larr;

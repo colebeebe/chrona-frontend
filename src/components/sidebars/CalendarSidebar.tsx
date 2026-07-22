@@ -18,19 +18,19 @@ function CalendarSidebar() {
           <li>
             <NavLink
               end
-              to="todo"
+              to="plan"
               className={({ isActive }) => (isActive ? 'active-link' : '')}
             >
-              To-Do
+              Plan
             </NavLink>
           </li>
           <li>
             <NavLink
               end
-              to="plan"
+              to="todo"
               className={({ isActive }) => (isActive ? 'active-link' : '')}
             >
-              Plan
+              To-Do
             </NavLink>
           </li>
         </ul>
