@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useUser } from '../../contexts/userContext';
+import { useTheme } from '../../contexts/themeContext';
 
 import './LoginView.css';
 
@@ -8,6 +9,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 function LoginView() {
   const { setUser } = useUser();
+  const { setTheme } = useTheme();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -41,6 +43,11 @@ function LoginView() {
         birthdate: user.birthdate,
         createdAt: user.created_at,
         updatedAt: user.updated_at,
+      });
+
+      setTheme({
+        mode: user.theme,
+        accent: user.accent,
       });
     }
   };

@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useUser } from '../contexts/userContext';
+import { useTheme } from '../contexts/themeContext';
 
 export function useAuth() {
   const { setUser } = useUser();
+  const { setTheme } = useTheme();
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -21,8 +23,16 @@ export function useAuth() {
         const data = await res.json();
 
         setUser(data);
+        setTheme({
+          mode: data.theme,
+          accent: data.accent,
+        });
       } catch {
         setUser(null);
+        setTheme({
+          mode: 'light',
+          accent: 'green',
+        });
       }
     };
 
