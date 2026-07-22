@@ -13,6 +13,7 @@ export type CalendarProps = {
 };
 
 export type EventType = {
+  id: number;
   startDate: Date;
   endDate: Date;
   name: string;

@@ -74,7 +74,9 @@ function MonthView({
               <span className={sameDay(day.date, today) ? 'today-date' : ''}>
                 {day.date.getDate()}
                 {day.events &&
-                  day.events.map((e) => <Event event={e} stack={e.stack} />)}
+                  day.events.map((e) => (
+                    <Event event={e} stack={e.stack} setEvents={setEvents} />
+                  ))}
               </span>
             </div>
           </div>
@@ -84,6 +86,7 @@ function MonthView({
         date={currentDate}
         hidden={modalHidden}
         setHidden={setModalHidden}
+        setEvents={setEvents}
       />
     </div>
   );

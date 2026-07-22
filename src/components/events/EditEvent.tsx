@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useUser } from '../../contexts/userContext';
-import { IoClose } from 'react-icons/io5';
 
 import type { EventType } from '../../utils/calendarTypes';
 
-import './EventWindow.css';
+import './EditEvent.css';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -16,23 +15,35 @@ type DBEventType = {
   description: string;
 };
 
-function EventWindow({
-  date,
-  hidden,
-  setHidden,
+function EditEvent({
+  visible,
+  setVisible,
+  event,
   setEvents,
 }: {
-  date: Date;
-  hidden: boolean;
-  setHidden: (value: boolean) => void;
+  visible: boolean;
+  setVisible: (v: boolean) => void;
+  event: EventType;
   setEvents: (e: EventType[]) => void;
 }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const getDateString = (date: Date) => {
+    const offset = date.getTimezoneOffset();
+    const localDate = new Date(date.getTime() - offset * 60000);
+    return localDate.toISOString().slice(0, 16);
+  };
 
   const { user } = useUser();
+
+  const [title, setTitle] = useState(event.name);
+  const [startDate, setStartDate] = useState(getDateString(event.startDate));
+  const [endDate, setEndDate] = useState(getDateString(event.endDate));
+  const [description, setDescription] = useState(event.notes ?? '');
+
+  const handleClose = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setVisible(false);
+  };
 
   const getEvents = async () => {
     if (!user) return;
@@ -48,67 +59,60 @@ function EventWindow({
     setEvents(formattedData);
   };
 
-  useEffect(() => {
-    const getDateString = () => {
-      const offset = date.getTimezoneOffset();
-      const localDate = new Date(date.getTime() - offset * 60000);
-      return localDate.toISOString().slice(0, 16);
-    };
-
-    const dateString = getDateString();
-
-    setStartTime(dateString);
-    setEndTime(dateString);
-  }, [date]);
-
-  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setTitle('');
-    setDescription('');
-    setHidden(true);
-  };
-
-  const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleSave = async (e: React.MouseEvent) => {
+    e.stopPropagation();
 
     if (!user) return;
 
     const data = {
-      userId: user.id,
       title,
+      startTime: startDate,
+      endTime: endDate,
       description,
-      startTime,
-      endTime,
     };
 
     const options = {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     };
 
-    await fetch(apiUrl + `/events`, options);
+    await fetch(apiUrl + `/events/${event.id}`, options);
     getEvents();
 
-    setTitle('');
-    setDescription('');
-    setHidden(true);
+    setVisible(false);
+  };
+
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    if (!user) return;
+
+    const options = {
+      method: 'DELETE',
+    };
+
+    await fetch(apiUrl + `/events/${event.id}`, options);
+    getEvents();
+
+    setVisible(false);
+  };
+
+  const stopProp = (e: React.MouseEvent) => {
+    e.stopPropagation();
   };
 
   return (
     <div
       className={
-        hidden ? 'event-window__component hide' : 'event-window__component'
+        visible ? 'edit-event__component' : 'edit-event__component hide'
       }
+      onClick={handleClose}
     >
-      <div className="modal-content">
-        <div className="close-button-container">
-          <button className="close-button" onClick={handleCancel}>
-            <IoClose size={20} color={'gray'} />
-          </button>
-        </div>
+      <div className="edit-event__modal" onClick={stopProp}>
+        <h1>Edit Event</h1>
         <input
           name="title"
           id="title-input"
@@ -124,8 +128,8 @@ function EventWindow({
               name="start-date"
               id="start-date"
               type="datetime-local"
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
             />
           </div>
         </section>
@@ -136,8 +140,8 @@ function EventWindow({
               name="end-date"
               id="end-date"
               type="datetime-local"
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
             />
           </div>
         </section>
@@ -152,8 +156,11 @@ function EventWindow({
           />
         </section>
         <div className="option-button-container">
-          <button className="btn" onClick={handleCancel}>
+          <button className="btn" onClick={handleClose}>
             Cancel
+          </button>
+          <button className="btn btn-red" onClick={handleDelete}>
+            Delete
           </button>
           <button className="btn btn-accent" onClick={handleSave}>
             Save
@@ -164,4 +171,4 @@ function EventWindow({
   );
 }
 
-export default EventWindow;
+export default EditEvent;

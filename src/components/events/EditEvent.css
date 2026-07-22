@@ -1,0 +1,60 @@
+:root {
+  --edit-event__bg: white;
+}
+[data-theme='dark'] {
+  --edit-event__bg: hsl(0, 4%, 10.5%);
+}
+
+.edit-event__component {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.15);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .edit-event__modal {
+    background-color: var(--edit-event__bg);
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    color: var(--text-color);
+
+    input,
+    textarea {
+      background-color: transparent;
+      color: var(--text-color);
+      padding: 8px;
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+
+    textarea {
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+    }
+
+    #title-input {
+      border: none;
+      border-bottom: 1px solid var(--gray);
+    }
+
+    .option-button-container {
+      display: flex;
+      gap: 10px;
+
+      button {
+        flex: 1;
+      }
+    }
+  }
+}

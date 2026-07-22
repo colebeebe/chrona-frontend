@@ -11,6 +11,7 @@ import './EventsSubpage.css';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 type DBEventType = {
+  id: number;
   title: string;
   start_datetime: string;
   end_datetime: string;
@@ -31,6 +32,7 @@ function EventsSubpage() {
       const response = await fetch(apiUrl + `/users/${user.id}/events`);
       const data = await response.json();
       const formattedData = data.map((event: DBEventType) => ({
+        id: event.id,
         name: event.title,
         startDate: new Date(event.start_datetime),
         endDate: new Date(event.end_datetime),
