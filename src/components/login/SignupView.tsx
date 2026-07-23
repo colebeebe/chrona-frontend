@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useUser } from '../../contexts/userContext';
 
 import './SignupView.css';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function SignupView() {
   const [firstName, setFirstName] = useState('');
@@ -12,13 +15,55 @@ function SignupView() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const { setUser } = useUser();
+
   const youngestBirthdate = new Date();
   youngestBirthdate.setFullYear(youngestBirthdate.getFullYear() - 8);
   const youngBirthdateStr = youngestBirthdate.toISOString().split('T')[0];
 
+  const handleFormSubmit = async (e: React.SubmitEvent) => {
+    e.preventDefault();
+
+    const data = {
+      email,
+      password,
+      firstName,
+      lastName,
+      username,
+      birthdate: birthdate !== '' ? birthdate : null,
+    };
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+
+    const response = await fetch(apiUrl + '/users', options);
+    let user = null;
+    if (response.ok) {
+      user = await response.json();
+    }
+
+    if (user) {
+      setUser({
+        id: user.id,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        email: user.email,
+        username: user.username,
+        birthdate: user.birthdate,
+        createdAt: user.created_at,
+        updatedAt: user.updated_at,
+      });
+    }
+  };
+
   return (
     <div className="signup-view">
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <div className="group-container">
           <div className="form-group">
             <label htmlFor="firstName">First Name</label>
